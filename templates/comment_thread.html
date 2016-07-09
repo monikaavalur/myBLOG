@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load urlify %}
 {% load crispy_forms_tags %}
+
+
 {% block head_title %}
     {{ instance.title }} | {{ block.super }}
 {% endblock head_title %}
@@ -12,7 +14,7 @@
 
 
              <p>{{ comment.content}}</p>
-             <footer>via {{ comment.user }} | {{ comment.timestamp|timesince }}
+             <footer>via {{ comment.user }} | {{ comment.timestamp|timesince }}ago
                  {% if comment.children.count > 0 %}
                  {{ comment.children.count }}Comment
                      {% if comment.children.count > 1 %}s{% endif %}

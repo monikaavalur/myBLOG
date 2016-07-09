@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% load urlify %}
 {% load crispy_forms_tags %}
+
 {% block head_title %}
     {{ instance.title }} | {{ block.super }}
 {% endblock head_title %}
+
 {% block post_detail_link %}
+     <li><a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a></li>
     {% endblock %}
 
 {% block content %}
@@ -23,8 +26,12 @@
         data-action="like"  data-show-faces="true" data-share="true"></div>
     <hr/>
 </p>
+
+    <div class="'row"></div>
 <div class="col-sm-12">
-     <div class="post-detail-item">{{ instance.get_markdown}}</div><br/>
+     <div class="post-detail-item">{{ instance.get_markdown}}</div>
+    <hr/>
+    <br/>
     <div>
         <p class="lead">Comments</p>
 {% if request.user.is_authenticated %}
@@ -41,7 +48,7 @@
         {% for comment in comments %}
             <blockquote>
              <p>{{ comment.content}}</p>
-             <footer>via {{ comment.user }} | {{ comment.timestamp|timesince }}
+             <footer>via {{ comment.user }} | {{ comment.timestamp|timesince }}ago
                  {% if comment.children.count > 0 %}
                  {{ comment.children.count }}Comment
                      {% if comment.children.count > 1 %}s{% endif %}

@@ -5,6 +5,8 @@ get_user_model,
 login,
 logout,
 )
+
+
 user=get_user_model()
 
 class UserLoginForm(forms.Form):
@@ -25,10 +27,11 @@ class UserLoginForm(forms.Form):
 
             if not user.is_active:
                 raise forms.ValidationError("This user is no longer active.")
-            return super(UserLoginForm, self).clean(*args, **kwargs)
+        return super(UserLoginForm, self).clean(*args, **kwargs)
 
 
 class UserRegisterForm(forms.ModelForm):
+    email=forms.EmailField(label='Email address')
     email2=forms.EmailField(label='confirm email')
     password = forms.CharField(widget=forms.PasswordInput)
 

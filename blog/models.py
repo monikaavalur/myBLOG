@@ -8,9 +8,8 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from markdown_deux import markdown
 from django.contrib.contenttypes.models import ContentType
-
-# Create your models here.
 from comments.models import Comment
+
 def upload_location(instance,filename):
     return "%s/%s" %(instance.id,filename)
 
@@ -39,13 +38,13 @@ class post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("posts:detail",kwargs={"id":self.id})
+        return reverse("posts:detail", kwargs={"slug": self.slug})
 
-    def get_edit_url(self):
-        return reverse("posts:edit",kwargs={"id":self.id})
+    def get_update_url(self):
+        return reverse("posts:update", kwargs={"slug": self.slug})
 
     def get_delete_url(self):
-        return reverse("posts:delete", kwargs={"id": self.id})
+        return reverse("posts:delete", kwargs={"slug": self.slug})
 
     class Meta:
         ordering=["-timestamp","-updated"]

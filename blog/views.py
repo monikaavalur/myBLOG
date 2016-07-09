@@ -30,18 +30,18 @@ def posts_create(request):
     return render(request, "post_form.html", context)
 
 
-def posts_detail(request,id):
-    instance=get_object_or_404(post,id=id)
-    if instance.draft or instance.publish>timezone.now().date():
+def posts_detail(request,slug=None):
+    instance=get_object_or_404(post,slug=slug)
+    if instance.publish > timezone.now().date() or instance.draft:
         if not request.user.is_staff or not request.user.is_superuser:
-             raise Http404
+            raise Http404
     share_string = quote_plus(instance.content)
     initial_data={
         "content_type":instance.get_content_type,
         "object_id":instance.id
     }
     form=CommentForm(request.POST or None,initial=initial_data)
-    if form.is_valid():
+    if form.is_valid() and request.user.is_authenticated():
          c_type=form.cleaned_data.get("content_type")
          content_type=ContentType.objects.get(model=c_type)
          obj_id=form.cleaned_data.get("object_id")
@@ -108,10 +108,10 @@ def posts_list(request):
     return render(request,"post_list.html",context)
 
 
-def posts_update(request, id=None):
+def posts_update(request, slug=None):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
-    instance = get_object_or_404(post, id=id)
+    instance = get_object_or_404(post, slug=slug)
     form = PostForm(request.POST or None,request.FILES or None,instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -126,10 +126,10 @@ def posts_update(request, id=None):
     return render(request, "post_form.html", context)
 
 
-def posts_delete(request,id=None):
+def posts_delete(request,slug=None):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
-    instance=get_object_or_404(post,id=id)
+    instance=get_object_or_404(post,slug=slug)
     instance.delete()
     messages.success(request, "Successfully deleted")
     return redirect("posts:list")
