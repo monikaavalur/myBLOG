@@ -155,4 +155,5 @@ STATICFILES_DIRS=[
 STATIC_ROOT=os.path.join("static_cdn")
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT=os.path.join("media_cdn")
