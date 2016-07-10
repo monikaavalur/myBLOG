@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'comments',
     'blog',
 ]
-PROJECT_DIR = os.path.dirname(__file__)
+
 CRISPY_TEMPLATE_PACK='bootstrap3'
 
 MIDDLEWARE_CLASSES = [
@@ -67,11 +67,11 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'untitled2.urls'
-
+PROJECT_DIR = os.path.dirname(__file__)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(PROJECT_DIR,'/..templates/')]
+        'DIRS': [os.path.join(PROJECT_DIR,'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
