@@ -17,6 +17,7 @@ from django.conf import settings
 from django.conf.urls import url,include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.core.urlresolvers import reverse
 
 from accounts.views import login_view,logout_view,register_view
 

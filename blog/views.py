@@ -105,7 +105,7 @@ def posts_list(request):
         "page_request_var":page_request_var,
         "today":today
     }
-    return render(request,"post_list.html",context)
+    return render(request,"/.../post_list.html",context)
 
 
 def posts_update(request, slug=None):
