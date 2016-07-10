@@ -95,7 +95,7 @@ def posts_list(request):
         queryset = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        queryset = paginator.page(1)
+        raise Http404
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         queryset = paginator.page(paginator.num_pages)
