@@ -110,8 +110,6 @@ def posts_list(request):
 
 @login_required
 def posts_update(request, slug=None):
-    if  request.user.is_authenticated():
-        return Http404
     instance = get_object_or_404(post, slug=slug)
     form = PostForm(request.POST or None,request.FILES or None,instance=instance)
     if form.is_valid():
@@ -128,8 +126,6 @@ def posts_update(request, slug=None):
 
 @login_required
 def posts_delete(request,slug=None):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
     instance=get_object_or_404(post,slug=slug)
     instance.delete()
     messages.success(request, "Successfully deleted")
