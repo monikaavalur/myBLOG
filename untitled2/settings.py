@@ -32,6 +32,10 @@ SECRET_KEY = 'ns3zhtc9alt)-%r=l7rogf3%6*w-nl&ytd91&wdk0o0--jev^k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
+PROJECT_ROOT = here("..")
+root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
+
 
 ALLOWED_HOSTS = ['*']
 LOGIN_URL='/login/'
@@ -71,8 +75,7 @@ PROJECT_DIR = os.path.dirname(__file__)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(PROJECT_DIR,'templates')]
-        ,
+        'DIRS': [root('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
