@@ -5,6 +5,7 @@ from django.contrib.auth import(
         login,
         logout,
 )
+
 from .forms import UserLoginForm,UserRegisterForm
 def login_view(request):
     next=request.GET.get('next')
@@ -32,7 +33,6 @@ def register_view(request):
         user.set_password(password)
         user.save()
         new_user = authenticate(username=user.username, password=password)
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(request,user)
         if next:
             return redirect(next)
