@@ -10,13 +10,13 @@ from django.shortcuts import render
 from comments.models import Comment
 from comments.forms import CommentForm
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 from .forms import PostForm
+@login_required
 def posts_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
     form=PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance=form.save(commit=False)
@@ -107,10 +107,10 @@ def posts_list(request):
     }
     return render(request,"post_list.html",context)
 
-
+@login_required
 def posts_update(request, slug=None):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    if  request.user.is_authenticated():
+        return Http404
     instance = get_object_or_404(post, slug=slug)
     form = PostForm(request.POST or None,request.FILES or None,instance=instance)
     if form.is_valid():
@@ -125,7 +125,7 @@ def posts_update(request, slug=None):
     }
     return render(request, "post_form.html", context)
 
-
+@login_required
 def posts_delete(request,slug=None):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
