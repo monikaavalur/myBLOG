@@ -1,3 +1,3 @@
 
-web: gunicorn untitled2.wsgi
+web: gunicorn blogonheroku.wsgi:application
 web: python manage.py runserver 0.0.0.0:5000
