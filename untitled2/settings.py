@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,7 +26,7 @@ SECRET_KEY = 'ns3zhtc9alt)-%r=l7rogf3%6*w-nl&ytd91&wdk0o0--jev^k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['blog.heroku.com']
 LOGIN_URL='/login/'
 
 # Application definition
@@ -98,7 +98,8 @@ DATABASES = {
   }
 }
 
-
+DATABASES['default'] = dj_database_url.config()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
@@ -138,6 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,"static"),
