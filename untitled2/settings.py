@@ -142,10 +142,10 @@ STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS=[
-    os.path.join(PROJECT_ROOT,"static"),
+    os.path.join("static"),
 ]
 
-STATIC_ROOT=os.path.join(PROJECT_ROOT,"static_cdn")
+STATIC_ROOT=os.path.join("static_cdn")
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT=os.path.join(PROJECT_ROOT,"media_cdn")
+MEDIA_ROOT=os.path.join("media_cdn")
