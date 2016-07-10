@@ -33,7 +33,7 @@ SECRET_KEY = 'ns3zhtc9alt)-%r=l7rogf3%6*w-nl&ytd91&wdk0o0--jev^k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['blog.heroku.com']
+ALLOWED_HOSTS = ['*']
 LOGIN_URL='/login/'
 
 # Application definition
