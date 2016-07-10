@@ -15,6 +15,13 @@ import os
 import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "untitled2.settings")
+
+# This application object is used by the development server
+# as well as any WSGI server configured to use this file.
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()
 
 
 # Quick-start development settings - unsuitable for production
