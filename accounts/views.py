@@ -37,7 +37,7 @@ def register_view(request):
         login(request,user)
         if next:
             return redirect(next)
-        return redirect("/login/")
+        return redirect("/")
     context={
         "form":form,
         "title":title
