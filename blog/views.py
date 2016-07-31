@@ -33,9 +33,10 @@ def posts_create(request):
 
 def posts_detail(request,slug=None):
     instance=get_object_or_404(post,slug=slug)
-    if instance.publish > timezone.now().date() or instance.draft:
-        if not request.user.is_staff or not request.user.is_superuser:
-            raise Http404
+    if instance.publish > timezone.now().date():
+        messages.success("Your post will be published on the given date")
+    if instance.draft:
+        messages.success("Your post is saved as draft. Only you can view it.")
     share_string = quote_plus(instance.content)
     initial_data={
         "content_type":instance.get_content_type,
