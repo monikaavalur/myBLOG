@@ -110,23 +110,29 @@ def posts_list(request):
 @login_required
 def posts_update(request, slug=None):
     instance = get_object_or_404(post, slug=slug)
-    form = PostForm(request.POST or None,request.FILES or None,instance=instance)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        messages.success(request, "Successfully saved")
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
-        "title": instance.title,
-        "instance": instance,
-        "form":form
-    }
-    return render(request, "post_form.html", context)
+    if request.user is not instance.user:
+        messages.sucess("You cannot edit this post")
+    else:
+        form = PostForm(request.POST or None,request.FILES or None,instance=instance)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Successfully saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+        context = {
+              "title": instance.title,
+              "instance": instance,
+              "form":form
+            }
+        return render(request, "post_form.html", context)
 
 @login_required
 def posts_delete(request,slug=None):
     instance=get_object_or_404(post,slug=slug)
-    instance.delete()
-    messages.success(request, "Successfully deleted")
+    if request.user is not instance.user:
+        messages.sucess("You cannot delete this post")
+    else:
+        instance.delete()
+        messages.success(request, "Successfully deleted")
     return redirect("posts:list")
 
