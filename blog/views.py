@@ -111,7 +111,7 @@ def posts_list(request):
 def posts_update(request, slug=None):
     instance = get_object_or_404(post, slug=slug)
     if request.user is not instance.user:
-        messages.sucess("You cannot edit this post")
+        messages.success(request,"You cannot edit this post")
     else:
         form = PostForm(request.POST or None,request.FILES or None,instance=instance)
         if form.is_valid():
@@ -130,7 +130,7 @@ def posts_update(request, slug=None):
 def posts_delete(request,slug=None):
     instance=get_object_or_404(post,slug=slug)
     if request.user is not instance.user:
-        messages.sucess("You cannot delete this post")
+        messages.success(request,"You cannot delete this post")
     else:
         instance.delete()
         messages.success(request, "Successfully deleted")
