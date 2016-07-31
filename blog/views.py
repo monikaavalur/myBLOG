@@ -124,7 +124,7 @@ def posts_update(request, slug=None):
               "instance": instance,
               "form":form
             }
-        return render(request, "post_form.html", context)
+    return render(request, "post_form.html", context)
 
 @login_required
 def posts_delete(request,slug=None):
