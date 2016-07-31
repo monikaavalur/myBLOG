@@ -112,6 +112,7 @@ def posts_update(request, slug=None):
     instance = get_object_or_404(post, slug=slug)
     if request.user is not instance.user:
             messages.error(request,"You cannot edit this post")
+            return redirect("posts:list")
     else:
         form = PostForm(request.POST or None,request.FILES or None,instance=instance)
         if form.is_valid():
