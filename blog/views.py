@@ -112,14 +112,13 @@ def posts_update(request, slug=None):
     instance = get_object_or_404(post, slug=slug)
     if request.user is not instance.user:
         messages.success(request,"You cannot edit this post")
-    else:
-        form = PostForm(request.POST or None,request.FILES or None,instance=instance)
-        if form.is_valid():
+    form = PostForm(request.POST or None,request.FILES or None,instance=instance)
+    if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
             messages.success(request, "Successfully saved")
             return HttpResponseRedirect(instance.get_absolute_url())
-        context = {
+    context = {
               "title": instance.title,
               "instance": instance,
               "form":form
