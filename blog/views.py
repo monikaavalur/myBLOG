@@ -37,7 +37,6 @@ def posts_detail(request,slug=None):
         messages.success(request,"Your post will be published on the given date")
     if instance.draft:
         messages.success(request,"Your post is saved as draft. Only you can view it.")
-    share_string = quote_plus(instance.content)
     initial_data={
         "content_type":instance.get_content_type,
         "object_id":instance.id
