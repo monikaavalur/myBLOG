@@ -110,7 +110,7 @@ def posts_list(request):
 @login_required
 def posts_update(request, slug=None):
     instance = get_object_or_404(post, slug=slug)
-    if request.user is not instance.user:
+    if not instance.user:
             messages.error(request,"You cannot edit this post")
             return redirect("posts:list")
     else:
@@ -130,7 +130,7 @@ def posts_update(request, slug=None):
 @login_required
 def posts_delete(request,slug=None):
     instance=get_object_or_404(post,slug=slug)
-    if request.user is not instance.user:
+    if not instance.user:
         messages.success(request,"You cannot delete this post")
     else:
         instance.delete()
