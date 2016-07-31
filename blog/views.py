@@ -69,7 +69,6 @@ def posts_detail(request,slug=None):
     context={
         "title":instance.title,
         "instance":instance,
-        "share_string":share_string,
         "comments":comments,
         "comment_form":form,
     }
